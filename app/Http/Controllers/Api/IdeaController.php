@@ -9,24 +9,26 @@ use Illuminate\Support\Facades\Log;
 
 class IdeaController extends Controller
 {
-  public function store()
+  // Create a new idea
+  public function store(Request $request)
   {
-    $idea = Idea::create([
-      'content' => request()->get('idea', null)
-    ]);
+    $idea = Idea::create($request->all());
 
-    return redirect()->route('dashboard');
+    return response()->json($idea, 201);
+    // return redirect()->route('dashboard');
   }
 
-  public function index(Request $request)
+  // Get all ideas with pagination
+  public function index()
   {
-    $ideas = Idea::query()->paginate(2);
-    Log::info($ideas);
+    $ideas = Idea::orderBy('created_at', 'desc')->paginate(3);
+    // Log::info($ideas);
     // dd($ideas);
     return response()->json(['data' => $ideas]);
   }
 
-  public function show(Request $request, $ideaId)
+  // Get one idea
+  public function show($ideaId)
   {
     $idea = Idea::findOrFail($ideaId);
     $idea->likes = $idea->likes + 1;
@@ -38,7 +40,24 @@ class IdeaController extends Controller
       "id" => $idea->id,
       "content" => $idea->content,
       "likes" => $idea->likes,
-
     ]]);
+  }
+
+  // Update a idea
+  public function update(Request $request, $ideaId)
+  {
+    $idea = Idea::findOrFail($ideaId);
+    $idea->update($request->all());
+
+    return response()->json($idea, 200);
+  }
+
+  // Delete a idea
+  public function destroy($ideaId)
+  {
+    $idea = Idea::findOrFail($ideaId);
+    $idea->delete();
+
+    return response()->json(['message' => 'The idea is deleted'], 200);
   }
 }

@@ -21,3 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/ideas', [IdeaController::class, 'index']);
 Route::get('/ideas/{id}', [IdeaController::class, 'show']);
+Route::post('/ideas/create', [IdeaController::class, 'store']);
+Route::put('/ideas/{id}', [IdeaController::class, 'update']);
+Route::delete('/ideas/{id}', [IdeaController::class, 'destroy']);
