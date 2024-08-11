@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\IdeaController;
+use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +20,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Idea routes
 Route::get('/ideas', [IdeaController::class, 'index']);
-Route::get('/ideas/{id}', [IdeaController::class, 'show']);
-Route::post('/ideas/create', [IdeaController::class, 'store']);
-Route::put('/ideas/{id}', [IdeaController::class, 'update']);
-Route::delete('/ideas/{id}', [IdeaController::class, 'destroy']);
+Route::get('/idea/{id}', [IdeaController::class, 'show']);
+Route::post('/idea/create', [IdeaController::class, 'store']);
+Route::put('/idea/{id}', [IdeaController::class, 'update']);
+Route::delete('/idea/{id}', [IdeaController::class, 'destroy']);
+
+// Post routes
+Route::get('/posts', [PostController::class, 'getAllPosts']);
+Route::get('/post/{id}', [PostController::class, 'getSinglePost']);
+Route::post('/post/create', [PostController::class, 'createPost']);
+Route::put('/post/{id}', [PostController::class, 'updatePost']);
