@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\IdeaController;
 use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
@@ -32,3 +33,9 @@ Route::get('/posts', [PostController::class, 'getAllPosts']);
 Route::get('/post/{id}', [PostController::class, 'getSinglePost']);
 Route::post('/post/create', [PostController::class, 'createPost']);
 Route::put('/post/{id}', [PostController::class, 'updatePost']);
+
+// Authentication
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
