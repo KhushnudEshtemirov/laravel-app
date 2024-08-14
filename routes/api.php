@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\IdeaController;
 use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
@@ -28,6 +29,9 @@ Route::post('/ideas/create', [IdeaController::class, 'store']);
 Route::put('/ideas/{id}', [IdeaController::class, 'update']);
 Route::delete('/ideas/{idea}', [IdeaController::class, 'destroy']);
 Route::get('/ideas/search/{search?}', [IdeaController::class, 'search']);
+
+// Comment routes
+Route::post('/ideas/{idea}/comments', [CommentController::class, 'store']);
 
 // Post routes
 Route::get('/posts', [PostController::class, 'getAllPosts']);

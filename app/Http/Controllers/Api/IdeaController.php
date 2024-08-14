@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Idea;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class IdeaController extends Controller
 {
