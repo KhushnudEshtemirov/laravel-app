@@ -64,7 +64,6 @@ class IdeaController extends Controller
   public function search($searchTerm = '')
   {
     $ideas = Idea::orderBy('created_at', 'desc');
-    dd('hello');
 
     if ($searchTerm) {
       $ideas = $ideas->where('content', 'like', '%' . $searchTerm . '%');
