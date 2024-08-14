@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Idea;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class IdeaController extends Controller
 {
@@ -52,11 +53,25 @@ class IdeaController extends Controller
   }
 
   // Delete a idea
-  public function destroy($ideaId)
+  public function destroy(Idea $idea)
   {
-    $idea = Idea::findOrFail($ideaId);
     $idea->delete();
 
     return response()->json(['message' => 'The idea is deleted'], 200);
+  }
+
+  //Search idea
+  public function search($searchTerm = '')
+  {
+    $ideas = Idea::orderBy('created_at', 'desc');
+    dd('hello');
+
+    if ($searchTerm) {
+      $ideas = $ideas->where('content', 'like', '%' . $searchTerm . '%');
+    }
+
+    $ideas = $ideas->paginate(3);
+
+    return response()->json(['data' => $ideas]);
   }
 }

@@ -23,16 +23,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Idea routes
 Route::get('/ideas', [IdeaController::class, 'index']);
-Route::get('/idea/{id}', [IdeaController::class, 'show']);
-Route::post('/idea/create', [IdeaController::class, 'store']);
-Route::put('/idea/{id}', [IdeaController::class, 'update']);
-Route::delete('/idea/{id}', [IdeaController::class, 'destroy']);
+Route::get('/ideas/{id}', [IdeaController::class, 'show']);
+Route::post('/ideas/create', [IdeaController::class, 'store']);
+Route::put('/ideas/{id}', [IdeaController::class, 'update']);
+Route::delete('/ideas/{idea}', [IdeaController::class, 'destroy']);
+Route::get('/ideas/search/{search?}', [IdeaController::class, 'search']);
 
 // Post routes
 Route::get('/posts', [PostController::class, 'getAllPosts']);
-Route::get('/post/{id}', [PostController::class, 'getSinglePost']);
-Route::post('/post/create', [PostController::class, 'createPost']);
-Route::put('/post/{id}', [PostController::class, 'updatePost']);
+Route::get('/posts/{id}', [PostController::class, 'getSinglePost']);
+Route::post('/posts/create', [PostController::class, 'createPost']);
+Route::put('/posts/{id}', [PostController::class, 'updatePost']);
+Route::delete('/posts/{id}', [PostController::class, 'deletePost']);
 
 // Authentication
 Route::post('/register', [AuthController::class, 'register']);
